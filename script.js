@@ -1,8 +1,7 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
-
+// Modal windo
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
@@ -29,3 +28,24 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+const header = document.querySelector('.header');
+
+let cookieMes = document.createElement('div');
+cookieMes.classList.add('cookie-message');
+cookieMes.innerHTML =
+  'We add cookies to improve functionality and analytics. <button class="btn btn--close-cookie">Close</button>';
+header.after(cookieMes);
+
+document.querySelector('.btn--close-cookie').addEventListener('click', () => {
+  cookieMes.remove();
+});
+
+cookieMes.style.width = '100%';
+cookieMes.style.backgroundColor = 'black';
+
+cookieMes.style.height = `${
+  parseFloat(getComputedStyle(cookieMes).height, 10) + 30
+}px`;
+
+document.documentElement.style.setProperty('--color-primary', 'blue');
