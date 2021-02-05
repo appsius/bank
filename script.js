@@ -31,27 +31,30 @@ document.addEventListener('keydown', function (e) {
 
 // SMOOTH SCROLLING
 const btnScroll = document.querySelector('.btn--scroll-to');
-
 btnScroll.addEventListener('click', e => {
   const s1 = document.querySelector('#section--1');
-  //const s1coords = s1.getBoundingClientRect();
-
-  //window.scrollTo({
-  //  left: s1coords.left + window.pageXOffset,
-  //  top: s1coords.top + window.pageYOffset,
-  //  behavior: 'smooth',
-  //});
-
   s1.scrollIntoView({ behavior: 'smooth' });
 });
 
-const navLinks = document.querySelectorAll('.nav__item');
+// EVENT BUBBLING
+const randomize = (min, max) =>
+  Math.floor(Math.random() * (max - min)) + min + 1;
 
-navLinks.forEach((link, i) => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
+const randomColor = () =>
+  `rgb(${randomize(0, 255)}, ${randomize(0, 255)}, ${randomize(0, 255)})`;
 
-    const section = document.querySelector(`#section--${i + 1}`);
-    section.scrollIntoView({ behavior: 'smooth' });
-  });
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  //e.preventDefault();
+  this.style.backgroundColor = randomColor();
+  console.log('LINK', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('CONTAINER', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('NAV', e.target, e.currentTarget);
 });
