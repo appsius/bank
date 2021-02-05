@@ -36,25 +36,36 @@ btnScroll.addEventListener('click', e => {
   s1.scrollIntoView({ behavior: 'smooth' });
 });
 
-// EVENT BUBBLING
-const randomize = (min, max) =>
-  Math.floor(Math.random() * (max - min)) + min + 1;
+document.querySelector('.nav__links').addEventListener('click', e => {
+  e.preventDefault();
 
-const randomColor = () =>
-  `rgb(${randomize(0, 255)}, ${randomize(0, 255)}, ${randomize(0, 255)})`;
-
-document.querySelector('.nav__link').addEventListener('click', function (e) {
-  //e.preventDefault();
-  this.style.backgroundColor = randomColor();
-  console.log('LINK', e.target, e.currentTarget);
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
 });
 
-document.querySelector('.nav__links').addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-  console.log('CONTAINER', e.target, e.currentTarget);
-});
+// TAB FUNCTIONALITY
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab--container');
+const content = document.querySelectorAll('.operations__content');
 
-document.querySelector('.nav').addEventListener('click', function (e) {
-  this.style.backgroundColor = randomColor();
-  console.log('NAV', e.target, e.currentTarget);
+tabsContainer.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // Find active tab
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard clause
+  if (!clicked) return;
+
+  // Class removal
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  content.forEach(c => c.classList.remove('operations__content--active'));
+
+  // Class activation
+  clicked.classList.add('operations__tab--active');
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
