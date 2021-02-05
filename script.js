@@ -29,23 +29,29 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-const header = document.querySelector('.header');
+// SMOOTH SCROLLING
+const btnScroll = document.querySelector('.btn--scroll-to');
 
-let cookieMes = document.createElement('div');
-cookieMes.classList.add('cookie-message');
-cookieMes.innerHTML =
-  'We add cookies to improve functionality and analytics. <button class="btn btn--close-cookie">Close</button>';
-header.after(cookieMes);
+btnScroll.addEventListener('click', e => {
+  const s1 = document.querySelector('#section--1');
+  //const s1coords = s1.getBoundingClientRect();
 
-document.querySelector('.btn--close-cookie').addEventListener('click', () => {
-  cookieMes.remove();
+  //window.scrollTo({
+  //  left: s1coords.left + window.pageXOffset,
+  //  top: s1coords.top + window.pageYOffset,
+  //  behavior: 'smooth',
+  //});
+
+  s1.scrollIntoView({ behavior: 'smooth' });
 });
 
-cookieMes.style.width = '100%';
-cookieMes.style.backgroundColor = 'black';
+const navLinks = document.querySelectorAll('.nav__item');
 
-cookieMes.style.height = `${
-  parseFloat(getComputedStyle(cookieMes).height, 10) + 30
-}px`;
+navLinks.forEach((link, i) => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
 
-document.documentElement.style.setProperty('--color-primary', 'blue');
+    const section = document.querySelector(`#section--${i + 1}`);
+    section.scrollIntoView({ behavior: 'smooth' });
+  });
+});
