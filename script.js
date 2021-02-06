@@ -11,6 +11,7 @@ const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab--container');
 const content = document.querySelectorAll('.operations__content');
 const nav = document.querySelector('.nav');
+const section1 = document.querySelector('#section--1');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -49,7 +50,7 @@ document.querySelector('.nav__links').addEventListener('click', e => {
   }
 });
 
-// TAB FUNCTIONALITY
+// Tab functionlity
 tabsContainer.addEventListener('click', function (e) {
   e.preventDefault();
   // Find active tab
@@ -69,7 +70,7 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
-// HOVER EFFECT
+// Hover effect
 const handleHover = function (e) {
   if (e.target.classList.contains('nav__link')) {
     const link = e.target;
@@ -86,5 +87,12 @@ const handleHover = function (e) {
 };
 
 nav.addEventListener('mouseover', handleHover.bind(0.5));
-
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+// Sticky navigation
+const initialCoords = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', function () {
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
